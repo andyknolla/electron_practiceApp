@@ -6,6 +6,25 @@
   </head>
   <body>
     <h1>Hellow Woild!</h1>
+    <form>
+      <div>
+        <label>Select a Video</label>
+        <input type='file' accept='video/*'></input>
+      </div>
+      <button type='submit'>Get info</button>
+    </form>
 
   </body>
+  <script>
+    const electron = require('electron');
+    const { ipcRenderer } = electron;
+
+    document.querySelector('form').addEventListener('submit', (event) => {
+      event.preventDefault();
+      console.log('sent');
+      const { path } = document.querySelector('input').files[0];
+
+      ipcRenderer.send('video:submit', path);
+    })
+  </script>
 </html>
